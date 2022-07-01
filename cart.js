@@ -4,7 +4,11 @@ for (var i = 0; i < addToCartButtons.length; i++) {
     var button = addToCartButtons[i]
     button.addEventListener('click', addToCartClicked)
 }
-
+var totalCost = document.getElementsByClassName('total-cost')
+for (var i = 0; i < totalCost.length; i++) {
+    var buttonClicked = totalCost[i]
+    buttonClicked.addEventListener('click', updateCartTotal)
+}
 function removeCartItem(el) {
     el.parentNode.parentNode.remove()
     updateCartTotal()
@@ -13,7 +17,6 @@ function quantityChanged(input) {
     if (isNaN(input.value) || input.value <= 0) {
         input.value = 1
     }
-    updateCartTotal()
 }
 function addToCartClicked(event) {
     var button = event.target
@@ -22,7 +25,7 @@ function addToCartClicked(event) {
     var price = shopItem.getElementsByClassName('price')[0].innerText
     var imageSrc = shopItem.getElementsByClassName('card-img-top')[0].src
     addItemToCart(title, price, imageSrc)
-    updateCartTotal()
+    //updateCartTotal()
 }
 function addItemToCart(title, price, imageSrc) {
     var cartRow = document.createElement('div')
@@ -50,17 +53,34 @@ function addItemToCart(title, price, imageSrc) {
     cartItems.append(cartRow)
 
 }
+// function updateCartTotal() {
+//     var cartItemContainer = document.getElementsByClassName('cart-items')[0]
+//     var cartRows = cartItemContainer.getElementsByClassName('cart-row')
+//     var total = 0
+//     for (var i = 0; i < cartRows.length; i++) {
+//         var cartRow = cartRows[i]
+//         var priceElement = cartRow.getElementsByClassName('cart-price')[0]
+//         var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0]
+//         var quantity = quantityElement.value
+//         total = total + (priceElement * quantity)
+//     }
+//     total = Math.round(total * 100) / 100
+//     document.getElementsByClassName('cart-total-price')[0].innerText = total
+// }
 function updateCartTotal() {
-    var cartItemContainer = document.getElementsByClassName('cart-items')[0]
-    var cartRows = cartItemContainer.getElementsByClassName('cart-row')
-    var total = 0
-    for (var i = 0; i < cartRows.length; i++) {
-        var cartRow = cartRows[i]
-        var priceElement = cartRow.getElementsByClassName('cart-price')[0]
-        var quantityElement = cartRow.getElementsByClassName('cart-quantity-input')[0]
-        var quantity = quantityElement.value
-        total = total + (priceElement * quantity)
+    var quantity=document.getElementsByClassName('cart-quantity-input')
+    var price = document.getElementsByClassName('price')
+    var total=0
+    for (var i = 0; i < quantity.length && i<price.length; i++) {
+        var buttonClicked = quantity[i].value
+        var p=price[i].innerHTML
+        var product =buttonClicked*p
+        console.log('quantity',buttonClicked)
+        console.log('price',p)
+        console.log('product',product)
+        total =product+total
+        console.log('total',total)
     }
-    total = Math.round(total * 100) / 100
-    document.getElementsByClassName('cart-total-price')[0].innerText = total
-}
+    var totalCost=document.getElementById('tot')
+    totalCost.innerHTML=' EG '+total
+}   
