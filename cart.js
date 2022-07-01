@@ -58,10 +58,10 @@ function updateCartTotal() {
     var price = document.getElementsByClassName('price')
     var total=0
     for (var i = 0; i < quantity.length && i<price.length; i++) {
-        var buttonClicked = quantity[i].value
+        var quantityChanged = quantity[i].value
         var p=price[i].innerHTML
-        var product =buttonClicked*p
-        console.log('quantity',buttonClicked)
+        var product =quantityChanged*p
+        console.log('quantity',quantityChanged)
         console.log('price',p)
         console.log('product',product)
         total =product+total
