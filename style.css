@@ -29,3 +29,6 @@
 .cart-item{
     width: 30%;
 }
+.price::before{
+content: "EG ";
+}
